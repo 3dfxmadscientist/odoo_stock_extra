@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="stock.report_picking_list" model="stock.picking" name="stock.picking.list.sarment" string="Picking Slip" rml="sarment_stock_report/report/picking.rml"/>
+        <report id="stock.report_picking_list_in" model="stock.picking.in" name="stock.picking.list.sarment.in" string="Receipt Slip" rml="sarment_stock_report/report/picking.rml"/>
+        <report id="stock.report_picking_list_out" model="stock.picking.out" name="stock.picking.list.sarment.out" string="Delivery Slip" rml="sarment_stock_report/report/picking.rml"/>
+        
+        <!-- Display clearly full path of 'location from' and full path of 'location to' on all picking move line form--> 
+        <record model="ir.ui.view" id="sarment_inherit_stock_move_picking_tree">
+            <field name="name">stock.move.picking.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </field>
+            </field>
+        </record>
+        
+        <!-- Add salesperson on deliver order list view -->
+        <record model="ir.ui.view" id="sarment_inherit_view_picking_out_tree">
+            <field name="name">sarment.inherit.view.picking.out.tree</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="user_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Add salesperson on deliver order search view -->
+        <record model="ir.ui.view" id="sarment_inherit_view_picking_out_search">
+            <field name="name">sarment.inherit.view.picking.out.tree</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="before">
+                    <field name="user_id"/>
+                </field>
+            </field>
+        </record>
+            
+    </data>
+</openerp>
